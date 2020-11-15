@@ -16,7 +16,6 @@ functions:
   webhook:
     handler: summoner.get_summary
     description: "Get a summary of information for a given summoner."
-    memory: 512
     timeout: 30
     events:
       - http:
@@ -39,5 +38,4 @@ functions:
                 summoner_name: true
   test:
     handler: summoner.test
-    memory: 512
     timeout: 300
