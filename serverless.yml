@@ -1,0 +1,43 @@
+service: turbo-chemtank
+app: turbo-chemtank
+org: matthewrmettler
+
+frameworkVersion: '2'
+
+provider:
+  name: aws
+  runtime: python3.8
+
+  environment:
+      riot_api_key: "TODO"
+
+
+functions:
+  webhook:
+    handler: summoner.get_summary
+    description: "Get a summary of information for a given summoner."
+    memory: 512
+    timeout: 30
+    events:
+      - http:
+          path: summary/{summoner_name}
+          method: get
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - snipe_email
+            allowCredentials: true
+          request:
+            parameters:
+              paths:
+                summoner_name: true
+  test:
+    handler: summoner.test
+    memory: 512
+    timeout: 300
