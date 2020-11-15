@@ -21,9 +21,13 @@ def test(event, context):
 
 def get_summary(event, context):
     summoner_name = event.get('pathParameters').get('summoner_name')
+    summoner_region = event.get('pathParameters').get('summoner_region') or 'NA'
+
+    summoner = Summoner(name=summoner_name, region=summoner_region)
 
     body = {
-        "message": "TODO: Summary of {}.".format(summoner_name)
+        "account_id": summoner.account_id,
+        "level": summoner.level
     }
 
     response = {
