@@ -12,13 +12,13 @@ provider:
   environment:
       RIOT_API_KEY: ${env:RIOT_API_KEY}
 
-plugins:
-  - serverless-python-requirements
 functions:
   webhook:
     handler: summoner.get_summary
     description: "Get a summary of information for a given summoner."
     timeout: 30
+    layers:
+      - "arn:aws:lambda:us-east-1:027849898893:layer:chemtank-layer:3"
     events:
       - http:
           path: summary/{summoner_name}
@@ -41,3 +41,5 @@ functions:
   test:
     handler: summoner.test
     timeout: 300
+    layers:
+      - "arn:aws:lambda:us-east-1:027849898893:layer:chemtank-layer:3"
