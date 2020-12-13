@@ -3,6 +3,9 @@ import json
 import cassiopeia as cass
 from cassiopeia import Summoner
 
+from helper/matches import match_summary
+from helper/champs import mastery_summary
+
 
 def print_summoner(name: str, region: str):
     summoner = Summoner(name=name, region=region)
@@ -11,7 +14,7 @@ def print_summoner(name: str, region: str):
     print("Account ID:", summoner.account_id)
     print("Level:", summoner.level)
     print("Revision date:", summoner.revision_date)
-    print("Profile icon ID:", summoner.profile_icon.id)
+    #print("Profile icon ID:", summoner.profile_icon.id)
     print("Profile icon name:", summoner.profile_icon.name)
 
 
@@ -27,7 +30,9 @@ def get_summary(event, context):
 
     body = {
         "account_id": summoner.account_id,
-        "level": summoner.level
+        "level": summoner.level,
+        "matches": match_summary(summoner),
+        "mastery": mastery_summary(summoner)
     }
 
     response = {
